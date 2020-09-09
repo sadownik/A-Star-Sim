@@ -68,6 +68,8 @@ class Simulation {
         Renderer renderer;
         Controller controller;
 
+        SDL_Point starting_point;
+
 
         std::vector<std::vector<node_type> > map;
         

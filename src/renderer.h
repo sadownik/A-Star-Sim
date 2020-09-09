@@ -4,6 +4,7 @@
 #include <vector>
 #include "SDL.h"
 #include "obstacle.h"
+#include <string>
 
 
 class Renderer {
@@ -15,7 +16,7 @@ class Renderer {
   void Render(Obstacle const obstacle, SDL_Point const &food);
   void RenderCheckeredBoard(std::vector <SDL_Point> const &obstacles, SDL_Point const &start, SDL_Point const &finish);
   void RenderFinalBoard(std::vector <SDL_Point> const &obstacles, SDL_Point const &start, SDL_Point const &finish,std::vector <SDL_Point> const &_pathnodes);
-  void UpdateWindowTitle(int score, int fps);
+
 
  private:
   SDL_Window *sdl_window;

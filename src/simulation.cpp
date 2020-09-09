@@ -13,6 +13,7 @@ bool operator<(const Node &x, const Node &y) {
 void Simulation::Run(const SDL_Point &start,const SDL_Point &end, const std::vector<SDL_Point> &obstaclelist) {
 
     AddObstacles(obstaclelist);
+    starting_point = start;
 
     int g = 0;
     Node _startNode(start,end,g, {0,0});
@@ -52,6 +53,7 @@ void Simulation::Run(const SDL_Point &start,const SDL_Point &end, const std::vec
 
     }
     ConstructWay(); 
+    std::cout << "final g value (iterations): "<< g << std::endl;
 
 
     while(true){
@@ -77,10 +79,17 @@ void Simulation::ConstructWay(){
 
     std::vector <std::vector <node_type>> exploredway_map = map;
 
-    // std::cout <<_ExpandedNodes.back().position[0] <<" "<< _ExpandedNodes.back().position[1] <<std::endl;
     SDL_Point last_pos = _ExpandedNodes.back().position;
 
+    // iterate the expanded nodes vector downwards
     for(auto i = _ExpandedNodes.size()-1; i>0;--i){
+
+        // if we are next to the starting node, we discard all prior expanded nodes because they are in the beginning best guesses and propably wrong
+        if ( (last_pos.x == starting_point.x + 1 || last_pos.x == starting_point.x - 1) && (last_pos.y == starting_point.y) || (last_pos.y == starting_point.y + 1 || last_pos.y == starting_point.y - 1) && (last_pos.x == starting_point.x) ) {
+            SDL_Point e {_ExpandedNodes[i].prev_Pos.x,_ExpandedNodes[i].prev_Pos.y};
+            _pathNodes.push_back(e);
+            break;
+        }
 
         if(_ExpandedNodes[i].position==last_pos){
             // std::cout <<_ExpandedNodes[i].position[0] <<" "<< _ExpandedNodes[i].position[1] <<std::endl;
@@ -91,6 +100,8 @@ void Simulation::ConstructWay(){
             _pathNodes.push_back(e);
             last_pos = _ExpandedNodes[i].prev_Pos;
         }
+
+
 
 
     }
