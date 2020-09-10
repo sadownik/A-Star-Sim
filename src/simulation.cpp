@@ -85,11 +85,11 @@ void Simulation::ConstructWay(){
     for(auto i = _ExpandedNodes.size()-1; i>0;--i){
 
         // if we are next to the starting node, we discard all prior expanded nodes because they are in the beginning best guesses and propably wrong
-        if ( (last_pos.x == starting_point.x + 1 || last_pos.x == starting_point.x - 1) && (last_pos.y == starting_point.y) || (last_pos.y == starting_point.y + 1 || last_pos.y == starting_point.y - 1) && (last_pos.x == starting_point.x) ) {
-            SDL_Point e {_ExpandedNodes[i].prev_Pos.x,_ExpandedNodes[i].prev_Pos.y};
-            _pathNodes.push_back(e);
-            break;
-        }
+        // if ( (last_pos.x == starting_point.x + 1 || last_pos.x == starting_point.x - 1) && (last_pos.y == starting_point.y) || (last_pos.y == starting_point.y + 1 || last_pos.y == starting_point.y - 1) && (last_pos.x == starting_point.x) ) {
+        //     SDL_Point e {_ExpandedNodes[i].prev_Pos.x,_ExpandedNodes[i].prev_Pos.y};
+        //     // _pathNodes.push_back(e);
+        //     break;
+        // }
 
         if(_ExpandedNodes[i].position==last_pos){
             // std::cout <<_ExpandedNodes[i].position[0] <<" "<< _ExpandedNodes[i].position[1] <<std::endl;
@@ -101,13 +101,8 @@ void Simulation::ConstructWay(){
             last_pos = _ExpandedNodes[i].prev_Pos;
         }
 
-
-
-
     }
     PrintCurrentMap(exploredway_map);
-
-    
 
 }
 
